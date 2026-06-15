@@ -1,0 +1,106 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.loading {
+  color: var(--text-muted);
+  font-size: 14px;
+  padding: 20px 0;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.big {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.value {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.sub {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.empty {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.catRow {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.catInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.catName {
+  font-size: 13px;
+  flex: 1;
+}
+
+.catAmount {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.over {
+  color: var(--danger);
+}
+
+.budget {
+  font-weight: 400;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.barTrack {
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
