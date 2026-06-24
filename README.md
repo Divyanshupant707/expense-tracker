@@ -2,24 +2,37 @@
 <img width="1170" height="837" alt="image" src="https://github.com/user-attachments/assets/31d6e689-01e1-401a-9a9b-37f3328fc545" />
 <img width="1182" height="792" alt="image" src="https://github.com/user-attachments/assets/18740672-7a04-4aaa-8c88-534311ae4cb1" />
 
-pendly – Mini Expense Tracker
+# Spendly – Mini Expense Tracker
+
 A full-stack expense tracker that lets you log daily spending, filter by category and date, visualise where your money goes, and set per-category budgets.
 
-Exercise: Exercise 2 – Mini Expense Tracker
+**Exercise:** Exercise 2 – Mini Expense Tracker
 
-Live Demo
-Deploy instructions below. Set REACT_APP_API_URL to your deployed backend URL before building the frontend.
+---
 
-Tech Stack
-Layer	Choice	Why
-Frontend	React 18 + CSS Modules	Component-driven, scoped styles, no extra build config
-Charts	Recharts	Declarative, React-native, great defaults
-Backend	Node.js + Express 4	Minimal, well-known, fast to iterate
-Database	sql.js (SQLite in WASM)	Zero-dependency SQLite; file persists to server/expenses.db
-Testing	Jest + Supertest	Standard Node testing stack
-How to Run Locally
-Assumes only Node.js is installed.
+## Live Demo
 
+> Deploy instructions below. Set `REACT_APP_API_URL` to your deployed backend URL before building the frontend.
+
+---
+
+## Tech Stack
+
+| Layer | Choice | Why |
+|---|---|---|
+| Frontend | React 18 + CSS Modules | Component-driven, scoped styles, no extra build config |
+| Charts | Recharts | Declarative, React-native, great defaults |
+| Backend | Node.js + Express 4 | Minimal, well-known, fast to iterate |
+| Database | sql.js (SQLite in WASM) | Zero-dependency SQLite; file persists to `server/expenses.db` |
+| Testing | Jest + Supertest | Standard Node testing stack |
+
+---
+
+## How to Run Locally
+
+> Assumes only Node.js is installed.
+
+```bash
 # 1. Clone and install
 git clone <your-repo>
 cd expense-tracker
@@ -33,22 +46,34 @@ npm start
 
 # 4. In another terminal — install and run client (port 3000)
 cd ../client && npm install && npm start
-Open http://localhost:3000. The React dev server proxies /api/* to http://localhost:3001.
+```
 
-Run tests
+Open [http://localhost:3000](http://localhost:3000). The React dev server proxies `/api/*` to `http://localhost:3001`.
+
+### Run tests
+
+```bash
 cd server && npm test
-API Documentation
-Base URL: http://localhost:3001/api
+```
 
-GET /expenses
+---
+
+## API Documentation
+
+Base URL: `http://localhost:3001/api`
+
+### GET /expenses
+
 Returns expenses, sorted by date descending.
 
-Query param	Type	Description
-category	string	Filter by category name
-startDate	string (YYYY-MM-DD)	Filter from date
-endDate	string (YYYY-MM-DD)	Filter to date
-Response 200 OK
+| Query param | Type | Description |
+|---|---|---|
+| `category` | string | Filter by category name |
+| `startDate` | string (YYYY-MM-DD) | Filter from date |
+| `endDate` | string (YYYY-MM-DD) | Filter to date |
 
+**Response** `200 OK`
+```json
 [
   {
     "id": 1,
@@ -59,48 +84,68 @@ Response 200 OK
     "created_at": "2026-06-10T12:00:00"
   }
 ]
-POST /expenses
+```
+
+---
+
+### POST /expenses
+
 Create a new expense.
 
-Body
-
+**Body**
+```json
 {
   "amount": 250.50,
   "category": "Food",
   "date": "2026-06-10",
   "note": "Lunch"
 }
-Response 201 Created — the created expense object.
+```
 
-Errors
+**Response** `201 Created` — the created expense object.
 
-400 — negative/zero amount, missing category, future date
-PUT /expenses/:id
+**Errors**
+- `400` — negative/zero amount, missing category, future date
+
+---
+
+### PUT /expenses/:id
+
 Update an existing expense. All fields optional (partial update).
 
-Body (all optional)
-
+**Body** (all optional)
+```json
 {
   "amount": 300,
   "category": "Food",
   "date": "2026-06-10",
   "note": "Updated note"
 }
-Response 200 OK — the updated expense object.
+```
 
-DELETE /expenses/:id
+**Response** `200 OK` — the updated expense object.
+
+---
+
+### DELETE /expenses/:id
+
 Delete an expense.
 
-Response 200 OK
-
+**Response** `200 OK`
+```json
 { "message": "Deleted successfully" }
-Errors — 404 if not found.
+```
 
-GET /summary
+**Errors** — `404` if not found.
+
+---
+
+### GET /summary
+
 Returns aggregated data for the current month.
 
-Response 200 OK
-
+**Response** `200 OK`
+```json
 {
   "totalThisMonth": 4200.00,
   "totalByCategory": [
@@ -113,21 +158,37 @@ Response 200 OK
     { "month": "2026-06", "total": 4200 }
   ]
 }
-GET /budgets
+```
+
+---
+
+### GET /budgets
+
 Returns all budget settings.
 
-Response 200 OK
-
+**Response** `200 OK`
+```json
 [{ "id": 1, "category": "Food", "amount": 5000 }]
-PUT /budgets/:category
+```
+
+---
+
+### PUT /budgets/:category
+
 Set or update a budget for a category.
 
-Body
-
+**Body**
+```json
 { "amount": 5000 }
-Response 200 OK — the budget object.
+```
 
-Project Structure
+**Response** `200 OK` — the budget object.
+
+---
+
+## Project Structure
+
+```
 expense-tracker/
 ├── server/
 │   ├── index.js          # Express app, all route handlers
@@ -158,22 +219,32 @@ expense-tracker/
 │           └── BudgetSettings.module.css
 │
 └── package.json                          # Root scripts
-Next Steps
-What I chose not to do (and why):
+```
 
-Authentication — brief specified "assume one user", so skipped to keep scope tight.
-React Query / SWR — opted for plain useCallback + useState to keep deps minimal and reviewable.
-Recurring expenses — useful but out of scope for the brief.
-What I'd build next:
+---
 
-User auth (JWT + bcrypt) so multiple users can share one deployment
-Recurring expense templates — weekly groceries, monthly rent set-and-forget
-Push/email alerts when a budget is about to be exceeded
-Richer date grouping — weekly view, year-over-year comparison
-PWA support — offline-first with service worker + background sync
-Multi-currency — conversion via open exchange rates API
-Notes
-Used Recharts for charts (React-native, good accessibility defaults)
-Currency formatted with Intl.NumberFormat using the browser locale (defaults to INR ₹)
-sql.js chosen over better-sqlite3 for zero native dependency build step — important for Render/Railway free tier deployment where node-gyp builds can fail
-All backend validation mirrors frontend validation (defense in depth)
+## Next Steps
+
+**What I chose not to do (and why):**
+
+- **Authentication** — brief specified "assume one user", so skipped to keep scope tight.
+- **React Query / SWR** — opted for plain `useCallback` + `useState` to keep deps minimal and reviewable.
+- **Recurring expenses** — useful but out of scope for the brief.
+
+**What I'd build next:**
+
+1. **User auth** (JWT + bcrypt) so multiple users can share one deployment
+2. **Recurring expense templates** — weekly groceries, monthly rent set-and-forget
+3. **Push/email alerts** when a budget is about to be exceeded
+4. **Richer date grouping** — weekly view, year-over-year comparison
+5. **PWA support** — offline-first with service worker + background sync
+6. **Multi-currency** — conversion via open exchange rates API
+
+---
+
+## Notes
+
+- Used Recharts for charts (React-native, good accessibility defaults)
+- Currency formatted with `Intl.NumberFormat` using the browser locale (defaults to INR ₹)
+- sql.js chosen over better-sqlite3 for zero native dependency build step — important for Render/Railway free tier deployment where node-gyp builds can fail
+- All backend validation mirrors frontend validation (defense in depth)
